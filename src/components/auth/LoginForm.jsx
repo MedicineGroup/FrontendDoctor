@@ -91,6 +91,7 @@ const LoginForm = () => {
           className="mt-6 bg-primary"
           fullWidth
           disabled={loading}
+          
         >
           {loading ? <Spinner /> : "Login"}
         </Button>
