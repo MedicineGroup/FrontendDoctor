@@ -1,0 +1,36 @@
+.clickable-avatar {
+  position: relative;
+  overflow: hidden;
+}
+
+.clickable-avatar:hover .avatar {
+  /* Apply blur effect */
+  filter: blur(2px);
+  transition: filter 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.clickable-avatar .icon {
+  display: none;
+  position: absolute;
+  cursor: pointer;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+}
+
+.clickable-avatar:hover .icon {
+  display: inline-block;
+  transition: all 0.3s ease-in-out;
+  animation: moveUp 0.5s ease-out;
+  bottom: 50%;
+}
+
+@keyframes moveUp {
+  from {
+    transform: translate(-50%, 100%);
+  }
+  to {
+    transform: translate(-50%, -50%);
+  }
+}
