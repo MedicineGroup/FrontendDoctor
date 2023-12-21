@@ -16,7 +16,6 @@ export function useAuthContext() {
   }
   return {
     isLoggedIn: context.isLoggedIn,
-    onSignup: context.onSignup,
     onLogin: context.onLogin,
     onLogout: context.onLogout,
     errors: context.errors,
@@ -30,13 +29,6 @@ const loginMutation = async (data) => {
   return axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:8888'}${API_ROUTES.Login}`, data);
 };
 
-const signupMutation = (data) => {
-  const { confirmPassword, ...signUpData } = data;
-  return axios.post(
-    `${import.meta.env.VITE_API_URL || 'http://localhost:8888'}${API_ROUTES.Signup}`,
-    signUpData
-  );
-};
 
 const logoutMutation = (jwtToken) => {
   return axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:8888'}${API_ROUTES.Logout}`, {
@@ -68,13 +60,13 @@ export function AuthProvider({ children }) {
   const mutationLogin = useMutation({
     mutationFn: loginMutation,
     onSuccess: (data) => {
-      localStorage.setItem("userData", JSON.stringify(data.data.user));
+      localStorage.setItem("userData", JSON.stringify(data.data.doctor));
       localStorage.setItem("token", data.data.token);
       setJwtToken(data.data.token);
       setIsLoggedIn(true);
-      setUserData(data.data.user);
+      setUserData(data.data.doctor);
       setLoading(false);
-      navigate(ROUTES.RDV);
+      navigate(ROUTES.HOME);
     },
     onError: (error) => {
       setErrors({
@@ -84,25 +76,7 @@ export function AuthProvider({ children }) {
     },
   });
 
-  const mutationSignup = useMutation({
-    mutationFn: signupMutation,
-    onSuccess: (data) => {
-      const user = data.data.user;
-      localStorage.setItem("userData", JSON.stringify(user));
-      localStorage.setItem("token", data.data.token);
-      setJwtToken(data.data.token);
-      setIsLoggedIn(true);
-      setUserData(data.data.user);
-      setLoading(false);
-      navigate(ROUTES.INFO_USER);
-    },
-    onError: (error) => {
-      setErrors({
-        signupErrors: error.response.data.message || "Something went wrong",
-      });
-      setLoading(false);
-    },
-  });
+ 
 
   const mutationLogout = useMutation({
     mutationFn: logoutMutation,
@@ -123,9 +97,7 @@ export function AuthProvider({ children }) {
     },
   });
 
-  const onSignup = async (data) => {
-    await mutationSignup.mutateAsync(data);
-  };
+  
 
   const onLogin = async (data) => {
     await mutationLogin.mutateAsync(data);
@@ -138,20 +110,17 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     if (
       mutationLogin.isPending ||
-      mutationSignup.isPending ||
       mutationLogout.isPending
     ) {
       setLoading(true);
     }
   }, [
     mutationLogin.isPending,
-    mutationSignup.isPending,
     mutationLogout.isPending,
   ]);
 
   const value = {
     isLoggedIn,
-    onSignup,
     onLogin,
     onLogout,
     errors,

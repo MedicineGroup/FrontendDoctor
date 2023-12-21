@@ -7,7 +7,35 @@ const Header = () => {
   return (
     <>
       {/* Header Area */}
-      <header className="header">     
+      <header className="header">
+        {/* Topbar */}
+        <div className="topbar">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6 col-md-5 col-12">
+                {/* Contact */}
+
+                {/* End Contact */}
+              </div>
+              <div className="col-lg-6 col-md-7 col-12">
+                {/* Top Contact */}
+                <ul className="top-contact">
+                  <li>
+                    <i className="fa fa-phone"></i>+880 1234 56789
+                  </li>
+                  <li>
+                    <i className="fa fa-envelope"></i>
+                    <a href="mailto:support@yourmail.com">
+                      support@yourmail.com
+                    </a>
+                  </li>
+                </ul>
+                {/* End Top Contact */}
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* End Topbar */}
         {/* Header Inner */}
         <div className="header-inner">
           <div className="container">
@@ -30,17 +58,7 @@ const Header = () => {
                   <div className="main-menu">
                     <nav className="navigation">
                       <ul className="nav menu">
-                        <li>
-                          <NavLink to={ROUTES.LANDING}>Home</NavLink>
-                        </li>
-                        {/*<li><a href="#">Doctos </a></li>
-											<li><a href="#">Services </a></li>*/}
-                        <li>
-                          <NavLink to={ROUTES.SIGNUP}>Register</NavLink>
-                        </li>
-                        <li>
-                          <NavLink to={ROUTES.LOGIN}>Login</NavLink>
-                        </li>
+                        
                       </ul>
                     </nav>
                   </div>

@@ -12,20 +12,16 @@ import { NavLink } from "react-router-dom";
 
 const navLinks = [
   {
-    name: "RDV",
-    path: ROUTES.RDV,
+    name: "Appointments",
+    path: ROUTES.APPOINTMENTS,
     icon: <PresentationChartBarIcon className="h-5 w-5" />,
   },
   {
-    name: "Dossier Medical",
-    path: ROUTES.DOSSIER_MEDICAL,
+    name: "Patients",
+    path: ROUTES.PATIENTS,
     icon: <InboxIcon className="h-5 w-5" />,
   },
-  {
-    name: "Infos Personnelles",
-    path: ROUTES.INFO_USER,
-    icon: <UserCircleIcon className="h-5 w-5" />,
-  },
+
 ];
 
 export function SideBar() {
