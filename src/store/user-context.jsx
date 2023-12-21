@@ -58,16 +58,16 @@ export function UserDataProvider({ children }) {
 
   useEffect(() => {
     const data = localStorage.getItem("userData");
-    if (data) {
+    if (data !== undefined && data !== null) {
       setUserData(JSON.parse(data));
     }
   }, []);
-
+  
   const mutationUpdateInfos = useMutation({
     mutationFn: updateInfosMutation,
     onSuccess: (data) => {
-      localStorage.setItem("userData", JSON.stringify(data.data.user));
-      setUserData(data.data.user);
+      localStorage.setItem("userData", JSON.stringify(data.data.doctor));
+      setUserData(data.data.doctor);
       setIsLoading(false);
       setUpdateSuccess(true);
     },
@@ -83,7 +83,7 @@ export function UserDataProvider({ children }) {
   const mutationUpdateUserProfile = useMutation({
     mutationFn: updateUserProfileImageMutation,
     onSuccess: (data) => {
-      localStorage.setItem("userData", JSON.stringify(data.data.user));
+      localStorage.setItem("userData", JSON.stringify(data.data.doctor));
       setUserData(data.data.user);
       setIsLoading(false);
       setUpdateSuccess(true);
