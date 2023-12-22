@@ -1,9 +1,9 @@
 import React from 'react'
-
+import PatientList from "../components/Patient/PatientList";
 const Patients = () => {
   return (
     <div>
-      <h1 className='text-center'>Patients Page</h1>
+      <PatientList/>
     </div>
   )
 }

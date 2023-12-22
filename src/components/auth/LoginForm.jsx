@@ -32,6 +32,7 @@ const LoginForm = () => {
   const { onLogin, errors: loginErrors, loading } = useAuthContext();
   const onSubmit = async (data) => {
     await onLogin(data);
+    // Check if login was successful
     reset();
   };
   return (
@@ -72,7 +73,7 @@ const LoginForm = () => {
           <Input
             type="password"
             size="lg"
-            placeholder="********"
+            placeholder="**********"
             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
             labelProps={{
               className: "before:content-none after:content-none",
