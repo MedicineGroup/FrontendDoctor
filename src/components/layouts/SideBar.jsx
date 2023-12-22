@@ -21,6 +21,11 @@ const navLinks = [
     path: ROUTES.PATIENTS,
     icon: <InboxIcon className="h-5 w-5" />,
   },
+  {
+    name: "Add Assistant",
+    path: ROUTES.ADD_ASSISTANT,
+    icon: <UserCircleIcon className="h-5 w-5" />,
+  },
 
 ];
 
