@@ -10,7 +10,7 @@ export const ROUTES = {
 export const API_ROUTES = {
   Login: "/auth/login-doctor",
   Logout: "/auth/logout",
-  Signup: "/auth/signupAssistant",
+  CreateAssistant: "/auth/signupAssistant",
   GetPatientsByDoctorEmail:"/doctor/getPatientsByDoctorEmail",
   GetConsultations: "/doctor/getConsultations"
 };
