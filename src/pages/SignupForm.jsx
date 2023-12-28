@@ -13,6 +13,7 @@ import { ROUTES } from  "../utils/routes";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import classes from "./Form-style.module.css";
+import { useUserDataContext } from "../store/user-context";
 
 const schema = yup.object({
   firstname: yup.string().required(),
@@ -32,10 +33,11 @@ const SignupForm = () => {
     resolver: yupResolver(schema),
     mode: "onTouched",
   });
-  const { loading, onSignup, errors: signupErrors } = useAuthContext();
+  const { loading, createAssistant, errors: signupErrors } = useAuthContext();
+  const {userData}=useUserDataContext();
   const { errors } = formState;
   const onSubmit = async (data) => {
-    await onSignup(data);
+    await createAssistant({...data, doctor: userData._id});
     reset();
   };
   return (
@@ -54,7 +56,7 @@ const SignupForm = () => {
       >
         <div className="mb-1 flex flex-col gap-6">
           <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Your First Name
+            Assistant First Name
           </Typography>
           <Input
             size="lg"
@@ -72,7 +74,7 @@ const SignupForm = () => {
             </div>
           )}
           <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Your Last Name
+          Assistant Last Name
           </Typography>
           <Input
             size="lg"
@@ -90,7 +92,7 @@ const SignupForm = () => {
             </div>
           )}
           <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Your email
+          Assistant email
           </Typography>
           <Input
             size="lg"
