@@ -1,11 +1,9 @@
 import React from 'react'
 
-const Appointments = () => {
-  return (
-    <div>
-      <h1 className='text-center'>Appointments page</h1>
-    </div>
-  )
+import ConsulationsList from "../components/doctor/ConsulationsList";
+
+function Appointments() {
+  return <ConsulationsList />;
 }
 
-export default Appointments
+export default Appointments;
