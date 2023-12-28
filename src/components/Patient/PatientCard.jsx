@@ -26,7 +26,7 @@ export default function PatientCard({ user }) {
         <CardHeader color="blue-gray">
           <img
             className="relative h-56 w-full"
-            src={user.profileImage}
+            src={user.profileImage || "/assets/profile-placeholder.jpg"}
             alt="card-image"
           />
         </CardHeader>

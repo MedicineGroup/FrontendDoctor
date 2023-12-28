@@ -6,6 +6,7 @@ import {
     CardFooter,
     Typography,
   } from "@material-tailwind/react";
+import FilesInfo from "./FilesInfo";
   
   
   export default function PatientInfo({ user }) {
@@ -43,7 +44,8 @@ import {
             <Typography>
               Gender: {user.gender}
             </Typography>
-            {/* Ajoutez d'autres propriétés ici */}
+            <br/>
+            <FilesInfo user={user}/>
           </CardBody>
           <CardFooter className="pt-0">
             {/* Ajoutez des boutons ou d'autres éléments au besoin */}
