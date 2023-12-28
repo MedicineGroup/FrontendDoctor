@@ -16,7 +16,7 @@ export function useAuthContext() {
   }
   return {
     isLoggedIn: context.isLoggedIn,
-    onSignup: context.onSignup,
+    createAssistant: context.createAssistant,
     onLogin: context.onLogin,
     onLogout: context.onLogout,
     errors: context.errors,
@@ -28,7 +28,7 @@ export function useAuthContext() {
 const signupMutation = (data) => {
   const { confirmPassword, ...signUpData } = data;
   return axios.post(
-    `${import.meta.env.VITE_API_URL || 'http://localhost:8888'}${API_ROUTES.Signup}`,
+    `${import.meta.env.VITE_API_URL || 'http://localhost:8888'}${API_ROUTES.CreateAssistant}`,
     signUpData
   );
 };
@@ -88,13 +88,7 @@ export function AuthProvider({ children }) {
     mutationFn: signupMutation,
     onSuccess: (data) => {
       const assistant = data.data.assistant;
-      localStorage.setItem("userData", JSON.stringify(assistant));
-      localStorage.setItem("token", data.data.token);
-      setJwtToken(data.data.token);
-      setIsLoggedIn(true);
-      setUserData(data.data.assistant);
       setLoading(false);
-      navigate(ROUTES.ADD_ASSISTANT);
     },
     onError: (error) => {
       setErrors({
@@ -134,7 +128,7 @@ export function AuthProvider({ children }) {
   const onLogout = async () => {
     await mutationLogout.mutateAsync(jwtToken);
   };
-  const onSignup = async (data) => {
+  const createAssistant = async (data) => {
     await mutationSignup.mutateAsync(data);
   };
 
@@ -155,7 +149,7 @@ export function AuthProvider({ children }) {
   const value = {
     isLoggedIn,
     onLogin,
-    onSignup,
+    createAssistant,
     onLogout,
     errors,
     jwtToken,
