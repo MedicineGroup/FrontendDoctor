@@ -1,10 +1,12 @@
 import axios from "axios";
 import { Card, Spinner, Typography } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
-import { API_ROUTES } from "../../utils/routes";
-import { useAuthContext } from "../../store/auth-context";
+import { API_ROUTES } from "../../utils/routes.js";
+import { useAuthContext } from "../../store/auth-context.jsx";
+import ConsultationRow from "./ConsultationRow.jsx";
 
-const TABLE_HEAD = ["Consultation Date", "Doctor", "Service", "State", ""];
+const TABLE_HEAD = ["Consultation Date", "Patient", "State", ""];
+
 
 const ConsulationsList = () => {
   const { jwtToken } = useAuthContext();
@@ -19,7 +21,7 @@ const ConsulationsList = () => {
       }
     );
   };
-
+ 
   const { data, isError, isLoading } = useQuery({
     queryKey: ["get-consultations"],
     queryFn: getConsultations,
@@ -31,7 +33,6 @@ const ConsulationsList = () => {
       </div>
     );
   }
-
   if (isError) {
     return (
       <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -50,85 +51,40 @@ const ConsulationsList = () => {
     );
   }
   return (
-    <Card className="h-full w-full overflow-scroll">
-      <table className="w-full min-w-max table-auto text-left">
-        <thead>
-          <tr>
-            {TABLE_HEAD.map((head) => (
-              <th
-                key={head}
-                className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-              >
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="font-normal leading-none opacity-70"
+    <>
+      <Card className="h-full w-full overflow-scroll">
+        <table className="w-full min-w-max table-auto text-left">
+          <thead>
+            <tr>
+              {TABLE_HEAD.map((head) => (
+                <th
+                  key={head}
+                  className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
                 >
-                  {head}
-                </Typography>
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.data.consultations.map(
-            ({ _id, date, doctor, service, state }) => {
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="font-normal leading-none opacity-70"
+                  >
+                    {head}
+                  </Typography>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.data.consultations.map((consultation) => {
               return (
-                <tr key={_id}>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {new Date(date).toLocaleDateString()}
-                    </Typography>
-                  </td>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {doctor}
-                    </Typography>
-                  </td>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {service}
-                    </Typography>
-                  </td>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="font-normal"
-                    >
-                      {state}
-                    </Typography>
-                  </td>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <Typography
-                      as="a"
-                      href="#"
-                      variant="small"
-                      color="blue-gray"
-                      className="font-medium"
-                    >
-                      Edit
-                    </Typography>
-                  </td>
-                </tr>
+                <ConsultationRow
+                  key={consultation._id}
+                  consultation={consultation}
+                />
               );
-            }
-          )}
-        </tbody>
-      </table>
-    </Card>
+            })}
+          </tbody>
+        </table>
+      </Card>
+    </>
   );
 };
 
